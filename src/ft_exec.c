@@ -6,7 +6,7 @@
 /*   By: qsymond <qsymond@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:55:18 by qsymond           #+#    #+#             */
-/*   Updated: 2020/09/10 03:00:02 by qsymond          ###   ########.fr       */
+/*   Updated: 2020/09/10 03:02:02 by qsymond          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ static void	exec_on_child(t_command cmd)
 	}
 }
 
-static void ft_support(pid_t pid)
+static void	ft_support(pid_t pid)
 {
 	g_terminal.pid = pid;
-		wait(&pid);
-		if (g_flag == 1)
-		{
-			g_flag = 0;
-			ft_initialize(1);
-		}
-		else
-			ft_initialize(WEXITSTATUS(pid));
-		g_terminal.pid = 0;
+	wait(&pid);
+	if (g_flag == 1)
+	{
+		g_flag = 0;
+		ft_initialize(1);
+	}
+	else
+		ft_initialize(WEXITSTATUS(pid));
+	g_terminal.pid = 0;
 }
 
 int			ft_execute_command(t_command cmd)
