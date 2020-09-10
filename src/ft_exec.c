@@ -6,13 +6,14 @@
 /*   By: qsymond <qsymond@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:55:18 by qsymond           #+#    #+#             */
-/*   Updated: 2020/09/09 01:16:33 by qsymond          ###   ########.fr       */
+/*   Updated: 2020/09/10 03:00:02 by qsymond          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_terminal g_terminal;
+extern t_terminal	g_terminal;
+extern int			g_flag;
 
 void		ft_initialize(int n)
 {
@@ -51,6 +52,20 @@ static void	exec_on_child(t_command cmd)
 	}
 }
 
+static void ft_support(pid_t pid)
+{
+	g_terminal.pid = pid;
+		wait(&pid);
+		if (g_flag == 1)
+		{
+			g_flag = 0;
+			ft_initialize(1);
+		}
+		else
+			ft_initialize(WEXITSTATUS(pid));
+		g_terminal.pid = 0;
+}
+
 int			ft_execute_command(t_command cmd)
 {
 	pid_t	pid;
@@ -69,12 +84,7 @@ int			ft_execute_command(t_command cmd)
 		exit(127);
 	}
 	else
-	{
-		g_terminal.pid = pid;
-		wait(&pid);
-		ft_initialize(WEXITSTATUS(pid));
-		g_terminal.pid = 0;
-	}
+		ft_support(pid);
 	close_fd(cmd);
 	free_cmd(cmd);
 	return (g_terminal.status == 0);

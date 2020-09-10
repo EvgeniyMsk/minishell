@@ -6,7 +6,7 @@
 /*   By: qsymond <qsymond@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:55:27 by qsymond           #+#    #+#             */
-/*   Updated: 2020/09/09 01:06:56 by qsymond          ###   ########.fr       */
+/*   Updated: 2020/09/09 20:27:58 by qsymond          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ static t_var	*create_var(char *env)
 	var->value = ft_substr(env, i + 1, ft_strlen(env) - i - 1);
 	return (var);
 }
-
-/*
-**	Copy env to list
-*/
 
 static void		copy_env_export(void)
 {
